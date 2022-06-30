@@ -1,0 +1,187 @@
+{
+	"info": {
+		"_postman_id": "977d6e18-5a13-4038-b389-80c6381f9a5f",
+		"name": "Pokeapi",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "10078410"
+	},
+	"item": [
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"user\":{\n    \"email\":\"root@root.com\",\n    \"password\":\"root\"\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1/api/auth/login",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"path": [
+						"api",
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create User",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"user\":{\n    \"email\":\"root@root.com\",\n    \"password\":\"root\",\n    \"password2\":\"root\"\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1/api/auth/registration/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"path": [
+						"api",
+						"auth",
+						"registration",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List all pokemons",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "token eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwiZXhwIjoxNjU2NDI5NDcwfQ.dc_uB6SfbzzUfQQ2z7ke9BwIw50NM3InCRxBh2mY1rs",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://127.0.0.1/api/pokemon/list/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"path": [
+						"api",
+						"pokemon",
+						"list",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List users with  their pokemons",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "token eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwiZXhwIjoxNjU2NDM4OTY3fQ.mLKRiou_jOUKaEKvfwRVTEzkqUSKS8bvpYUgUnQ1NiU",
+						"type": "text"
+					},
+					{
+						"key": "",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "http://127.0.0.1/api/pokemon/list-users-poke/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"path": [
+						"api",
+						"pokemon",
+						"list-users-poke",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add pokemon for user",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "token eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MiwiZXhwIjoxNjU2NDQ1NTYxfQ.M8yX56rp-7FabfvhaXt_fWrYuJvgS7yy2OSfZJ9CKOc",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"pokemon\":{\n    \"pokemon_name\":\"charmeleon\"\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1/api/pokemon/add/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"path": [
+						"api",
+						"pokemon",
+						"add",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

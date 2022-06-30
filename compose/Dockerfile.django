@@ -1,0 +1,38 @@
+FROM python:3.8 as builder
+ARG DEBIAN_FRONTEND=noninteractive
+WORKDIR /usr/src/poke
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
+COPY . /usr/src/poke
+RUN apt-get update && apt-get upgrade -y && apt-get install netcat -y && apt-get install apt-utils -y
+RUN python -m pip install --upgrade pip
+COPY ./requirements.txt /tmp/
+COPY ./entrypoint.sh /tmp/
+RUN pip wheel --no-cache-dir --no-deps --wheel-dir /usr/src/poke/wheels -r /tmp/requirements.txt
+
+
+FROM python:3.8 as production_django
+ARG DEBIAN_FRONTEND=noninteractive
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
+RUN mkdir -p /home/app
+RUN groupadd app
+RUN useradd -m -g app app -p PASSWORD
+RUN usermod -aG app app
+ENV HOME=/home/app
+ENV APP_HOME=/home/app/web
+RUN mkdir $APP_HOME
+RUN mkdir $APP_HOME/staticfiles
+WORKDIR $APP_HOME
+RUN apt-get update && apt-get upgrade -y && apt-get install netcat -y  && apt-get install apt-utils -y
+#RUN apt-get install postgresql-dev gcc python3-dev musl-dev
+RUN python -m pip install --upgrade pip
+COPY --from=builder /usr/src/poke/wheels /wheels
+COPY --from=builder /tmp/requirements.txt .
+COPY --from=builder /tmp/entrypoint.sh .
+RUN pip install --no-cache /wheels/*
+COPY . $APP_HOME
+RUN chown -R app:app $APP_HOME
+USER app
+
+ENTRYPOINT ["/home/app/web/entrypoint.sh"]
